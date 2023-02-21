@@ -36,7 +36,6 @@ class ToponInterstitialAd(context: Context, private val adUnitId: String) : Base
     override fun prepare() {
         super.prepare()
         AdLog.w(TAG) { "prepare $placement $adUnitId" }
-
         ATInterstitialAutoAd.addPlacementId(adUnitId)
     }
 

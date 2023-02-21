@@ -2,6 +2,7 @@ package com.android.atlasv.topon.ad
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,7 +81,7 @@ class ToponNativeAd(val activity: Activity, private val adUnitId: String) : Base
     }
 
     override fun isReady(): Boolean {
-        return nativeAd?.checkAdStatus()?.isReady == true
+        return nativeAdBean != null
     }
 
     override fun show(container: ViewGroup, layoutId: Int): Boolean {
@@ -119,11 +120,12 @@ class ToponNativeAd(val activity: Activity, private val adUnitId: String) : Base
 
     private fun renderAdContent(container: ViewGroup, adView: View, adBean: NativeAd) {
         val ad = adBean.adMaterial
-        val icon = adView.findViewById<FrameLayout>(R.id.icon)
+        val icon = adView.findViewById<FrameLayout>(R.id.icon_container)
         val title = adView.findViewById<TextView>(R.id.headline)
         val body = adView.findViewById<TextView>(R.id.body)
         val button = adView.findViewById<TextView>(R.id.callToAction)
         val mediaLayout = adView.findViewById<FrameLayout>(R.id.media)
+        icon.removeAllViews()
 
         var iconView = ad.adIconView
         if (iconView == null) {
@@ -144,16 +146,21 @@ class ToponNativeAd(val activity: Activity, private val adUnitId: String) : Base
         title.text = ad.title
         body.text = ad.descriptionText
         button.text = ad.callToActionText
-        val mediaView = ad.getAdMediaView(mediaLayout)?.apply {
+        var mediaView = ad.getAdMediaView(mediaLayout)
+        if (mediaView == null && !TextUtils.isEmpty(ad.mainImageUrl)) {
+            mediaView = ATNativeImageView(activity).apply {
+                setImage(ad.mainImageUrl)
+            }
+        }
+        if (mediaView != null) {
             mediaLayout.addView(
-                this,
+                mediaView,
                 FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
             )
         }
-
 
         val atNativeViewLayout = ATNativeAdView(activity)
         atNativeViewLayout.addView(
