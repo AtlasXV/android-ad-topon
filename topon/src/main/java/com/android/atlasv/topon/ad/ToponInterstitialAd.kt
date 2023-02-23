@@ -19,7 +19,7 @@ import com.anythink.interstitial.api.ATInterstitialAutoEventListener
 
 class ToponInterstitialAd(context: Context, private val adUnitId: String) : BaseAd() {
     companion object {
-        private const val TAG = "ToponInterstitialAd"
+        const val TAG = "ToponInterstitialAd"
     }
 
     private val bundle = Bundle()

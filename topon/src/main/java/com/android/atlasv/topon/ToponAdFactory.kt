@@ -43,8 +43,11 @@ object ToponAdFactory : IAdFactory() {
     }
 
     override fun initializePlatformSdk(context: Context) {
-        ATSDK.setNetworkLogDebug(AdLog.adLogEnable(Log.ERROR))
-        ATSDK.integrationChecking(context)
+
+        if (AdLog.adLogEnable(Log.ERROR)) {
+            ATSDK.setNetworkLogDebug(true)
+            ATSDK.integrationChecking(context)
+        }
         val metaData = context.packageManager.getApplicationInfo(
             context.packageName,
             PackageManager.GET_META_DATA
@@ -60,6 +63,7 @@ object ToponAdFactory : IAdFactory() {
                     context,
                     AnalysisEvent.AD_LOAD_SUCCESS, bundle
                 )
+                AdLog.w(ToponInterstitialAd.TAG) { "Interstitial onInterstitialAutoLoaded $placement" }
             }
 
             override fun onInterstitialAutoLoadFail(placement: String, error: AdError) {
@@ -67,6 +71,8 @@ object ToponAdFactory : IAdFactory() {
                 bundle.putString("unit_id", placement)
                 bundle.putInt("errorCode", error.code.toInt())
                 EventAgent.logEvent(context, AnalysisEvent.AD_LOAD_FAIL, bundle)
+
+                AdLog.w(ToponInterstitialAd.TAG) { "Interstitial onInterstitialAutoLoadFail $placement  ${error.desc}" }
             }
 
         })
