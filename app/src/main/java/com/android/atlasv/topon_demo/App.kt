@@ -7,6 +7,7 @@ import android.os.Process
 import android.util.Log
 import com.android.atlasv.ad.framework.core.AdManager
 import com.android.atlasv.ad.framework.util.AdLog
+import com.anythink.core.api.ATDebuggerConfig
 import com.anythink.core.api.ATSDK
 import com.anythink.core.api.AdError
 import com.anythink.interstitial.api.ATInterstitialAutoAd
@@ -22,6 +23,11 @@ class App : Application() {
         if (BuildConfig.DEBUG) {
             AdLog.setLogLevel(Log.VERBOSE)
         }
+//        ATSDK.setDebuggerConfig(
+//            this, "5d77d58d17b69dcb",
+//            ATDebuggerConfig.Builder(6)
+//                .build()
+//        )
         AdManager.initializePlatformSdk(this)
         AdHelper.init(this)
     }

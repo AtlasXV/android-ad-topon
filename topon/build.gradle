@@ -107,14 +107,15 @@ dependencies {
     api "com.applovin:applovin-sdk:11.5.5"
 
     //Mintegral
+    def mintegralVc= "16.3.61"
     api "com.anythink.sdk:adapter-mintegral-nonchina:6.1.55"
-    api "com.mbridge.msdk.oversea:reward:16.2.61"
-    api "com.mbridge.msdk.oversea:newinterstitial:16.2.61"
-    api "com.mbridge.msdk.oversea:mbnative:16.2.61"
-    api "com.mbridge.msdk.oversea:mbnativeadvanced:16.2.61"
-    api "com.mbridge.msdk.oversea:mbsplash:16.2.61"
-    api "com.mbridge.msdk.oversea:mbbanner:16.2.61"
-    api "com.mbridge.msdk.oversea:mbbid:16.2.61"
+    api "com.mbridge.msdk.oversea:reward:${mintegralVc}"
+    api "com.mbridge.msdk.oversea:newinterstitial:${mintegralVc}"
+    api "com.mbridge.msdk.oversea:mbnative:${mintegralVc}"
+    api "com.mbridge.msdk.oversea:mbnativeadvanced:${mintegralVc}"
+    api "com.mbridge.msdk.oversea:mbsplash:${mintegralVc}"
+    api "com.mbridge.msdk.oversea:mbbanner:${mintegralVc}"
+    api "com.mbridge.msdk.oversea:mbbid:${mintegralVc}"
     api "androidx.recyclerview:recyclerview:1.1.0"
 
     //Tramini
